@@ -17,7 +17,14 @@
             <origin xyz="0 0 ${base_height/2}" rpy="0 0 0" />
             <material name="blue" />
         </visual>
-        <xacro:box_inertia m="5.0" l="${base_length}" w="base_width" h="base_height"
+        <collision>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}" />
+            </geometry>
+            <origin xyz="0 0 ${base_height/2}" rpy="0 0 0" />
+            <material name="blue" />
+        </collision>
+        <xacro:box_inertia m="5.0" l="${base_length}" w="${base_width}" h="${base_height}"
                            xyz="0 0 ${base_height/2.0}" rpy="0 0 0" />
     </link>
 
@@ -30,9 +37,16 @@
                 <origin xyz="0 0 0" rpy="${pi/2.0} 0 0" />
                 <material name="grey" />
             </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length="${wheel_length}" />
+                </geometry>
+                <origin xyz="0 0 0" rpy="${pi/2.0} 0 0" />
+                <material name="grey" />
+            </collision>
 
-            <xacro:box_inertia m="1.0" r="${wheel_radius}" l="wheel_length"
-                            xyz="0 0 0" rpy="${pi/2.0} 0 0" />
+            <xacro:cylinder_inertia m="1.0" r="${wheel_radius}" l="${base_height}"
+                                    xyz="0 0 0" rpy="${pi/2.0} 0 0" />
         </link>
     </xacro:macro>
 
@@ -47,8 +61,15 @@
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="grey" />
         </visual>
-        <xacro:box_inertia m="0.5" r="${wheel_radius/2.0}"
-                xyz="0 0 0" rpy="0 0 0" />
+        <collision>
+            <geometry>
+                <sphere radius="${wheel_radius/2.0}" />
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name="grey" />
+        </collision>
+        <xacro:sphere_inertia m="0.5" r="${wheel_radius/2.0}"
+                              xyz="0 0 0" rpy="0 0 0" />
     </link>
 
     <joint name="base_joint" type="fixed">
